@@ -3,17 +3,14 @@ import PropTypes from "prop-types";
 const ForecastList = ({ forecastData }) => {
   if (!forecastData) return null;
 
-  // Функция для получения даты без времени
   const getDateWithoutTime = (timestamp) => {
     const date = new Date(timestamp * 1000);
     return date.toLocaleDateString();
   };
 
-  // Получаем уникальные дни из прогноза (по одному прогнозу на каждый день)
   const uniqueDaysForecast = forecastData.list.reduce((acc, forecast) => {
     const forecastDate = getDateWithoutTime(forecast.dt);
 
-    // Проверяем, есть ли уже прогноз для этого дня
     if (!acc.some((item) => getDateWithoutTime(item.dt) === forecastDate)) {
       acc.push(forecast);
     }
