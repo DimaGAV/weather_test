@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { getWeather, getForecast } from "./api";
+import SearchBar from "./components/SearchBar";
+import WeatherCard from "./components/WeatherCard";
+import ForecastList from "./components/ForecastList";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [city, setCity] = useState("");
+  const [weatherData, setWeatherData] = useState(null);
+  const [forecastData, setForecastData] = useState(null);
+  const [error, setError] = useState("");
+
+  const handleSearch = async () => {
+    setError("");
+
+    if (!city.trim()) {
+      setError("Пожалуйста, введите название города.");
+      setWeatherData(null);
+      setForecastData(null);
+      return;
+    }
+
+    try {
+      const weatherResponse = await getWeather(city.trim());
+
+      if (weatherResponse.error) {
+        setError(weatherResponse.error);
+        setWeatherData(null);
+        setForecastData(null);
+        return;
+      }
+
+      setWeatherData(weatherResponse.data);
+
+            const forecastResponse = await getForecast(city.trim());
+
+      if (forecastResponse.error) {
+        setError(forecastResponse.error);
+        setForecastData(null);
+        return;
+      }
+
+      setForecastData(forecastResponse.data);
+
+    } catch (err) {
+      console.error("Ошибка при получении данных:", err);
+      setError("Не удалось получить данные о погоде. Попробуйте позже.");
+      setWeatherData(null);
+      setForecastData(null);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="weather-app">
+      <SearchBar city={city} setCity={setCity} handleSearch={handleSearch} />
+      {error && <p className="error">{error}</p>}
+      {weatherData && <WeatherCard weatherData={weatherData} />}
+      {forecastData && <ForecastList forecastData={forecastData} />}
+    </div>
+  );
+};
 
-export default App
+export default App;
