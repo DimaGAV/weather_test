@@ -8,7 +8,7 @@ const WeatherCard = ({ weatherData }) => {
       <h2>{weatherData.name}</h2>
       <p>Температура: {Math.round(weatherData.main.temp)}°C</p>
       <p>Влажность: {weatherData.main.humidity}%</p>
-      <p>Скорость ветра: {weatherData.wind.speed} м/с</p>
+      <p>Скорость ветра: {parseFloat(weatherData.wind.speed).toFixed(1)} м/с</p>
       <img
         src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`}
         alt={weatherData.weather[0].description}

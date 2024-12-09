@@ -12,7 +12,7 @@ const App = () => {
 
   const handleSearch = async () => {
     setError("");
-    const { data, error } = await getWeather(city);
+    /* const { data, error } = await getWeather(city);
     if (error) {
       setError(error);
       setWeatherData(null);
@@ -27,7 +27,25 @@ const App = () => {
       setForecastData(null);
       return;
     }
-    setForecastData(forecast);
+    setForecastData(forecast); */
+    if (!city.trim()) {
+      setError("Пожалуйста, введите название города.");
+      return;
+    }
+
+    try {
+      const weatherResponse = await getWeather(city.trim());
+      setWeatherData(weatherResponse.data);
+
+      const forecastResponse = await getForecast(city.trim());
+      setForecastData(forecastResponse.data);
+
+    } catch (err) {
+      console.error("Ошибка при получении данных:", err);
+      setError("Не удалось получить данные о погоде. Попробуйте позже.");
+      setWeatherData(null);
+      setForecastData(null);
+    }
   };
 
   return (

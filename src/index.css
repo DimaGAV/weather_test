@@ -2,6 +2,7 @@
   padding: 20px;
   max-width: 600px;
   margin: 0 auto;
+  background-color: rgb(200, 200, 255);
 }
 
 .search-bar input {

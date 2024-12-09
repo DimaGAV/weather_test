@@ -10,7 +10,7 @@ export const getWeather = async (city) => {
         q: city,
         appid: API_KEY,
         units: "metric",
-        lang: "ru", // Можно добавить поддержку языка
+        lang: "ru",
       },
     });
     return { data: response.data, error: null };

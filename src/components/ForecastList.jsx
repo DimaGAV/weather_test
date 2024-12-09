@@ -3,13 +3,31 @@ import PropTypes from "prop-types";
 const ForecastList = ({ forecastData }) => {
   if (!forecastData) return null;
 
+  // Функция для получения даты без времени
+  const getDateWithoutTime = (timestamp) => {
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleDateString();
+  };
+
+  // Получаем уникальные дни из прогноза (по одному прогнозу на каждый день)
+  const uniqueDaysForecast = forecastData.list.reduce((acc, forecast) => {
+    const forecastDate = getDateWithoutTime(forecast.dt);
+
+    // Проверяем, есть ли уже прогноз для этого дня
+    if (!acc.some((item) => getDateWithoutTime(item.dt) === forecastDate)) {
+      acc.push(forecast);
+    }
+
+    return acc;
+  }, []);
+
   return (
     <div className="forecast-list">
       <h3>Прогноз на 5 дней</h3>
       <div className="forecast-items">
-        {forecastData.list.slice(0, 5).map((forecast, index) => (
+        {uniqueDaysForecast.slice(0, 5).map((forecast, index) => (
           <div key={index} className="forecast-item">
-            <p>{new Date(forecast.dt * 1000).toLocaleDateString()}</p>
+            <p>{getDateWithoutTime(forecast.dt)}</p>
             <p>Температура: {Math.round(forecast.main.temp)}°C</p>
             <img
               src={`http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`}

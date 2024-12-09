@@ -1,8 +1,42 @@
-# React + Vite
+Weather App
+Это приложение позволяет получить текущую погоду и прогноз на 5 дней для указанного города, используя OpenWeather API. Оно реализовано с использованием React и Vite.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Установка и запуск проекта
 
-Currently, two official plugins are available:
+1. Клонировать репозиторий
+   Для начала нужно клонировать репозиторий на свой компьютер:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+git clone https://github.com/yourusername/weather_test.git
+
+Замените yourusername на ваше имя пользователя в GitHub.
+
+2. Установить зависимости
+   Перейдите в каталог проекта и установите зависимости с помощью npm:
+
+cd weather_test
+npm install
+
+или, если вы используете yarn:
+
+yarn install
+
+3. Настроить API ключ
+   Для работы приложения необходимо получить API-ключ от OpenWeather:
+
+   - Перейдите на OpenWeather API.
+   - Зарегистрируйтесь и получите API-ключ.
+   - Создайте файл .env в корне проекта и добавьте в него свой API-ключ:
+
+   VITE_API_KEY=your_api_key_here
+
+Замените your_api_key_here на ваш реальный ключ.
+
+4. Запустить проект
+   Теперь можно запустить проект локально:
+
+npm run dev
+или с помощью yarn:
+
+yarn dev
+
+Проект будет доступен по адресу http://localhost:5173 в вашем браузере.
