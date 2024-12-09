@@ -10,7 +10,6 @@ const SearchBar = ({ city, setCity, handleSearch }) => {
         value={city}
         onChange={(e) => setCity(e.target.value)}
       />
-      {/* <button onClick={handleSearch}>Поиск</button> */}
       <button onClick={() => handleSearch(city.trim())}>Поиск</button>
     </div>
   );

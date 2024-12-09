@@ -13,10 +13,15 @@ export const getWeather = async (city) => {
         lang: "ru",
       },
     });
+
     return { data: response.data, error: null };
   } catch (error) {
+    if (error.response && error.response.status === 404) {
+      return { data: null, error: `Город "${city}" не найден.` };
+    }
+    
     console.error(error);
-    return { data: null, error: "Ошибка получения данных о погоде" };
+    return { data: null, error: "Ошибка получения данных о погоде." };
   }
 };
 
@@ -30,9 +35,14 @@ export const getForecast = async (city) => {
         lang: "ru",
       },
     });
+
     return { data: response.data, error: null };
   } catch (error) {
+    if (error.response && error.response.status === 404) {
+      return { data: null, error: `Город "${city}" не найден.` };
+    }
+
     console.error(error);
-    return { data: null, error: "Ошибка получения прогноза погоды" };
+    return { data: null, error: "Ошибка получения прогноза погоды." };
   }
 };

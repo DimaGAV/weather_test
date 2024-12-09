@@ -44,14 +44,14 @@ ForecastList.propTypes = {
   forecastData: PropTypes.shape({
     list: PropTypes.arrayOf(
       PropTypes.shape({
-        dt: PropTypes.number.isRequired, // Время прогноза (в секундах)
+        dt: PropTypes.number.isRequired,
         main: PropTypes.shape({
-          temp: PropTypes.number.isRequired, // Температура
+          temp: PropTypes.number.isRequired,
         }).isRequired,
         weather: PropTypes.arrayOf(
           PropTypes.shape({
-            icon: PropTypes.string.isRequired, // Иконка погоды
-            description: PropTypes.string.isRequired, // Описание погоды
+            icon: PropTypes.string.isRequired,
+            description: PropTypes.string.isRequired,
           })
         ).isRequired,
       })
